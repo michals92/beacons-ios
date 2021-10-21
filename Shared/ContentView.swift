@@ -12,7 +12,7 @@ import Combine
 
 struct ContentView: View {
     var body: some View {
-        TabView(selection: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Selection@*/.constant(1)/*@END_MENU_TOKEN@*/) {
+        TabView {
             MapView().tabItem { Text("Map") }.tag(1)
             Text("Add event").tabItem { Text("Add event") }.tag(2)
         }
