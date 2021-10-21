@@ -6,13 +6,18 @@
 //
 
 import Foundation
+import CoreLocation
 
-struct Beacon: Codable {
+struct Beacon: Codable, Identifiable {
     let id: Int
-    let name: String
+    var name: String
     let description: String
     let latitude: Float
     let longitude: Float
     let duration: Float
     let date: String
+
+    var coordinate: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude))
+    }
 }
