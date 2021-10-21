@@ -9,30 +9,13 @@ import SwiftUI
 import Combine
 
 //var publisher: AnyPublisher<[Beacon], Error>?
-var subscriber: Cancellable?
 
 struct ContentView: View {
-    let apiService: ApiService = RestApiService()
-
     var body: some View {
-        Text("Hello, world!")
-            .padding()
-            .onAppear {
-                subscriber = apiService.getBeacons().sink(receiveCompletion: { completion in
-                    print(completion)
-
-                    switch completion {
-                    case .failure(let error):
-                        print(error)
-                        break
-                        //TODO :- add error reaction
-                    case .finished: break
-                        //TODO : - finished successfully
-                    }
-                }, receiveValue: { beacons in
-                    print(beacons)
-                })
-            }
+        TabView(selection: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Selection@*/.constant(1)/*@END_MENU_TOKEN@*/) {
+            MapView().tabItem { Text("Map") }.tag(1)
+            Text("Add event").tabItem { Text("Add event") }.tag(2)
+        }
     }
 }
 
