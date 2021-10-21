@@ -16,7 +16,6 @@ enum ApiError: Error {
 protocol ApiService {
     func addBeacon(name: String, description: String, latitude: Float, longitude: Float, duration: Float, date: String) -> AnyPublisher<Beacon, Error>
     func getBeacons() -> AnyPublisher<[Beacon], Error>
-    func getBeacons2()
 }
 
 class RestApiService: ObservableObject, ApiService {
@@ -64,21 +63,6 @@ class RestApiService: ObservableObject, ApiService {
             .map { $0.data }
             .decode(type: [Beacon].self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
-    }
-
-    func getBeacons2() {
-        let path = "beacons"
-        guard let url = URL(string: path, relativeTo: apiUrl) else {
-            fatalError("bad url")
-        }
-
-        URLSession.shared.dataTaskPublisher(for: url)
-            .map { $0.data }
-            .decode(type: [Beacon].self, decoder: JSONDecoder()).receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: {
-                print("Received completion: \($0).") },
-                  receiveValue: { beacons in
-                print("Received user: \(beacons).")})
     }
 }
 
