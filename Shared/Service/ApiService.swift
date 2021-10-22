@@ -7,25 +7,23 @@
 
 import Foundation
 import Combine
-import UIKit
 
 enum ApiError: Error {
     case emptyData
+    case parsing(description: String)
 }
 
 protocol ApiService {
-    func addBeacon(name: String, description: String, latitude: Float, longitude: Float, duration: Float, date: String) -> AnyPublisher<Beacon, Error>
-    func getBeacons() -> AnyPublisher<[Beacon], Error>
+    func addBeacon(name: String, description: String, latitude: Float, longitude: Float, duration: Float, date: String) -> AnyPublisher<Beacon, ApiError>
+    func getBeacons() -> AnyPublisher<[Beacon], ApiError>
 }
 
 class RestApiService: ObservableObject, ApiService {
-    var cancellables = Set<AnyCancellable>()
-
     let apiUrl = URL(string: "https://immense-cliffs-07774.herokuapp.com/")
 
     public init() {}
 
-    func addBeacon(name: String, description: String, latitude: Float, longitude: Float, duration: Float, date: String) -> AnyPublisher<Beacon, Error> {
+    func addBeacon(name: String, description: String, latitude: Float, longitude: Float, duration: Float, date: String) -> AnyPublisher<Beacon, ApiError> {
         let path = "addBeacon"
         guard let url = URL(string: path, relativeTo: apiUrl) else {
             fatalError("bad url")
@@ -50,10 +48,11 @@ class RestApiService: ObservableObject, ApiService {
         return session.dataTaskPublisher(for: request)
             .map { $0.data }
             .decode(type: Beacon.self, decoder: JSONDecoder())
+            .mapError{ .parsing(description: $0.localizedDescription) }
             .eraseToAnyPublisher()
     }
 
-    func getBeacons() -> AnyPublisher<[Beacon], Error> {
+    func getBeacons() -> AnyPublisher<[Beacon], ApiError> {
         let path = "beacons"
         guard let url = URL(string: path, relativeTo: apiUrl) else {
             fatalError("bad url")
@@ -62,7 +61,9 @@ class RestApiService: ObservableObject, ApiService {
         return URLSession.shared.dataTaskPublisher(for: url)
             .map { $0.data }
             .decode(type: [Beacon].self, decoder: JSONDecoder())
+            .mapError{ .parsing(description: $0.localizedDescription) }
             .eraseToAnyPublisher()
     }
 }
 
+//TODO: make another layer for calling URLSession

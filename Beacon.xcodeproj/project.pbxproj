@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		710C7F0827230FE10037E134 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710C7F0727230FE10037E134 /* MapViewModel.swift */; };
+		710C7F0927230FE10037E134 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710C7F0727230FE10037E134 /* MapViewModel.swift */; };
 		71CE9DAD2720AF9B00F41208 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CE9DAC2720AF9B00F41208 /* Tests_iOS.swift */; };
 		71CE9DAF2720AF9B00F41208 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CE9DAE2720AF9B00F41208 /* Tests_iOSLaunchTests.swift */; };
 		71CE9DB92720AF9B00F41208 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CE9DB82720AF9B00F41208 /* Tests_macOS.swift */; };
@@ -42,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		710C7F0727230FE10037E134 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		71CE9D942720AF9900F41208 /* BeaconApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconApp.swift; sourceTree = "<group>"; };
 		71CE9D952720AF9900F41208 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		71CE9D962720AF9B00F41208 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -91,6 +94,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		710C7F0A272312B70037E134 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				710C7F0727230FE10037E134 /* MapViewModel.swift */,
+				71CE9DDC272185D200F41208 /* MapView.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		71CE9D8E2720AF9800F41208 = {
 			isa = PBXGroup;
 			children = (
@@ -107,7 +119,7 @@
 			children = (
 				71CE9D942720AF9900F41208 /* BeaconApp.swift */,
 				71CE9D952720AF9900F41208 /* ContentView.swift */,
-				71CE9DDC272185D200F41208 /* MapView.swift */,
+				710C7F0A272312B70037E134 /* Map */,
 				71CE9DD32720B13D00F41208 /* Model */,
 				71CE9DD02720B00600F41208 /* Service */,
 				71CE9D962720AF9B00F41208 /* Assets.xcassets */,
@@ -335,6 +347,7 @@
 				71CE9DDD272185D200F41208 /* MapView.swift in Sources */,
 				71CE9DD22720B03300F41208 /* ApiService.swift in Sources */,
 				71CE9DD52720B14E00F41208 /* Beacon.swift in Sources */,
+				710C7F0827230FE10037E134 /* MapViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +356,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71CE9DBF2720AF9B00F41208 /* ContentView.swift in Sources */,
+				710C7F0927230FE10037E134 /* MapViewModel.swift in Sources */,
 				71CE9DDE272185D200F41208 /* MapView.swift in Sources */,
 				71CE9DDF2721865600F41208 /* ApiService.swift in Sources */,
 				71CE9DBD2720AF9B00F41208 /* BeaconApp.swift in Sources */,
@@ -434,7 +448,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -488,7 +502,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
