@@ -10,8 +10,9 @@ import Combine
 import MapKit
 
 class MapViewModel: Identifiable, ObservableObject {
+    var subscribers: [AnyCancellable] = []
+
     @Published var beacons: [Beacon]?
-    @Published var count: Int?
     @Published var currentLocation = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
 
@@ -22,23 +23,30 @@ class MapViewModel: Identifiable, ObservableObject {
         bind()
     }
 
+    deinit {
+        subscribers.forEach { $0.cancel() }
+    }
+
     private func bind() {
-        $beacons.map{ $0?.count }.assign(to: &$count)
-        //TODO: - fix optional for center
         $currentLocation.map { MKCoordinateRegion(center: $0, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))}.assign(to: &$region)
     }
 
     func getBeacons() {
-        apiService.getBeacons()
-            .optionalize()
-            .replaceError(with: nil)
-            .assign(to: &$beacons)
+        subscribers.append(
+            apiService
+                .getBeacons()
+                .replaceError(with: nil).sink { beacons in
+                    DispatchQueue.main.async {
+                        self.beacons = beacons
+                    }
+                }
+        )
     }
 
     func getCurrentLocation() {
         let lat = locationManager.location?.coordinate.latitude ?? 49.195061
         let log = locationManager.location?.coordinate.longitude ?? 16.606836
-        //TODO: - show that I am not able to center
+        //TODO: - show that I am not able to center and add retry
 
         currentLocation = CLLocationCoordinate2D(latitude: lat, longitude: log)
     }
@@ -54,11 +62,5 @@ class MapViewModel: Identifiable, ObservableObject {
         default:
             return false
         }
-    }
-}
-
-extension Publisher {
-    func optionalize() -> Publishers.Map<Self, Self.Output?> {
-        map({ Optional.some($0) })
     }
 }

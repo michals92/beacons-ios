@@ -15,11 +15,12 @@ enum ApiError: Error {
 
 protocol ApiService {
     func addBeacon(name: String, description: String, latitude: Float, longitude: Float, duration: Float, date: String) -> AnyPublisher<Beacon, ApiError>
-    func getBeacons() -> AnyPublisher<[Beacon], ApiError>
+    func getBeacons() -> AnyPublisher<[Beacon]?, ApiError>
 }
 
 class RestApiService: ObservableObject, ApiService {
-    let apiUrl = URL(string: "https://immense-cliffs-07774.herokuapp.com/")
+    private let apiUrl = URL(string: "https://immense-cliffs-07774.herokuapp.com/")
+    private let session = URLSession.shared
 
     public init() {}
 
@@ -39,31 +40,31 @@ class RestApiService: ObservableObject, ApiService {
         ]
 
         var request =  URLRequest(url: url)
-        let session = URLSession.shared
+
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpBody = try! JSONSerialization.data(withJSONObject: params, options: [])
 
         return session.dataTaskPublisher(for: request)
-            .map { $0.data }
-            .decode(type: Beacon.self, decoder: JSONDecoder())
+            .tryMap{ data, _ in
+                try JSONDecoder().decode(Beacon.self, from: data)
+            }
             .mapError{ .parsing(description: $0.localizedDescription) }
             .eraseToAnyPublisher()
     }
 
-    func getBeacons() -> AnyPublisher<[Beacon], ApiError> {
+    func getBeacons() -> AnyPublisher<[Beacon]?, ApiError> {
         let path = "beacons"
         guard let url = URL(string: path, relativeTo: apiUrl) else {
             fatalError("bad url")
         }
 
-        return URLSession.shared.dataTaskPublisher(for: url)
-            .map { $0.data }
-            .decode(type: [Beacon].self, decoder: JSONDecoder())
+        return session.dataTaskPublisher(for: url)
+            .tryMap{ data, _ in
+                try JSONDecoder().decode([Beacon].self, from: data)
+            }
             .mapError{ .parsing(description: $0.localizedDescription) }
             .eraseToAnyPublisher()
     }
 }
-
-//TODO: make another layer for calling URLSession
