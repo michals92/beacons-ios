@@ -14,18 +14,18 @@ struct AddEvent: View {
         NavigationView {
             List {
                 Section("informace") {
-                    TextField("Jméno", text: $viewModel.name)
+                    TextField("Název", text: $viewModel.name)
                     TextField("Popis", text: $viewModel.desc)
 
                     Picker(selection: $viewModel.duration, label: Text("Trvání")) {
-                        Text("30").tag(1)
-                        Text("60").tag(2)
-                        Text("90").tag(3)
+                        Text("30").tag(30)
+                        Text("60").tag(60)
+                        Text("90").tag(90).navigationTitle("Délka v minutách")
                     }
                 }
 
                 Section {
-                    Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                    Button(action: viewModel.addPoint) {
                         Text("Potvrdit")
                     }
                 }

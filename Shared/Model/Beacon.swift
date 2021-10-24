@@ -20,4 +20,8 @@ struct Beacon: Codable, Identifiable {
     var coordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude))
     }
+
+    var dateParsed: Date? {
+        return ISO8601DateFormatter().date(from: date)
+    }
 }
