@@ -8,8 +8,6 @@
 import SwiftUI
 import Combine
 
-//var publisher: AnyPublisher<[Beacon], Error>?
-
 struct ContentView: View {
     var body: some View {
         TabView {

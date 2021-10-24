@@ -44,13 +44,13 @@ class RestApiService: ObservableObject, ApiService {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.httpBody = try! JSONSerialization.data(withJSONObject: params, options: [])
+        request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
 
         return session.dataTaskPublisher(for: request)
-            .tryMap{ data, _ in
+            .tryMap { data, _ in
                 try JSONDecoder().decode(Beacon.self, from: data)
             }
-            .mapError{ .parsing(description: $0.localizedDescription) }
+            .mapError { .parsing(description: $0.localizedDescription) }
             .eraseToAnyPublisher()
     }
 
@@ -61,10 +61,10 @@ class RestApiService: ObservableObject, ApiService {
         }
 
         return session.dataTaskPublisher(for: url)
-            .tryMap{ data, _ in
+            .tryMap { data, _ in
                 try JSONDecoder().decode([Beacon].self, from: data)
             }
-            .mapError{ .parsing(description: $0.localizedDescription) }
+            .mapError { .parsing(description: $0.localizedDescription) }
             .eraseToAnyPublisher()
     }
 }

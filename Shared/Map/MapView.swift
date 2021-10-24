@@ -9,7 +9,6 @@ import SwiftUI
 import Combine
 import MapKit
 
-
 struct MapView: View {
     @StateObject private var viewModel = MapViewModel()
 
