@@ -31,9 +31,8 @@ struct AddEvent: View {
                 }
             }.navigationTitle("Přidat bod")
                 .alert(viewModel.alertText, isPresented: $viewModel.showingAlert) {
-                            Button("OK", role: .cancel) { }
-                        }
-
+                    Button("OK", role: .cancel) { }
+                }
         }
     }
 }
