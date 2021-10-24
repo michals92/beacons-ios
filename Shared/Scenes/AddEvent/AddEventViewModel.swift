@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import CoreLocation
+import UIKit
 
 class AddEventViewModel: NSObject, Identifiable, ObservableObject {
     var subscribers: [AnyCancellable] = []
@@ -64,6 +65,8 @@ class AddEventViewModel: NSObject, Identifiable, ObservableObject {
             )
             .sink(receiveCompletion: { completion in
 
+                UIApplication.shared.endEditing()
+
                 switch completion {
                 case .failure(let error):
                     DispatchQueue.main.async {
@@ -84,5 +87,14 @@ class AddEventViewModel: NSObject, Identifiable, ObservableObject {
                 }
             })
         )
+    }
+}
+
+//TODO: remove this extension 
+extension UIApplication {
+    func endEditing() {
+        DispatchQueue.main.async {
+            self.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
     }
 }
