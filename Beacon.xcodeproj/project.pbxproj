@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		710C7F0827230FE10037E134 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710C7F0727230FE10037E134 /* MapViewModel.swift */; };
 		710C7F0927230FE10037E134 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710C7F0727230FE10037E134 /* MapViewModel.swift */; };
+		7127877427256471004625A9 /* RequestLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7127877327256471004625A9 /* RequestLocationView.swift */; };
+		7127877527256471004625A9 /* RequestLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7127877327256471004625A9 /* RequestLocationView.swift */; };
+		712787772725648D004625A9 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712787762725648D004625A9 /* ErrorView.swift */; };
+		712787782725648D004625A9 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712787762725648D004625A9 /* ErrorView.swift */; };
 		71CE9DAD2720AF9B00F41208 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CE9DAC2720AF9B00F41208 /* Tests_iOS.swift */; };
 		71CE9DAF2720AF9B00F41208 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CE9DAE2720AF9B00F41208 /* Tests_iOSLaunchTests.swift */; };
 		71CE9DB92720AF9B00F41208 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CE9DB82720AF9B00F41208 /* Tests_macOS.swift */; };
@@ -46,6 +50,8 @@
 /* Begin PBXFileReference section */
 		710C7F0727230FE10037E134 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		710C7F1327255A910037E134 /* Beacon--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Beacon--iOS--Info.plist"; sourceTree = "<group>"; };
+		7127877327256471004625A9 /* RequestLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLocationView.swift; sourceTree = "<group>"; };
+		712787762725648D004625A9 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		71CE9D942720AF9900F41208 /* BeaconApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconApp.swift; sourceTree = "<group>"; };
 		71CE9D952720AF9900F41208 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		71CE9D962720AF9B00F41208 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -100,6 +106,8 @@
 			children = (
 				710C7F0727230FE10037E134 /* MapViewModel.swift */,
 				71CE9DDC272185D200F41208 /* MapView.swift */,
+				7127877327256471004625A9 /* RequestLocationView.swift */,
+				712787762725648D004625A9 /* ErrorView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -369,9 +377,11 @@
 				71CE9DBE2720AF9B00F41208 /* ContentView.swift in Sources */,
 				71CE9DBC2720AF9B00F41208 /* BeaconApp.swift in Sources */,
 				71CE9DDD272185D200F41208 /* MapView.swift in Sources */,
+				7127877427256471004625A9 /* RequestLocationView.swift in Sources */,
 				71CE9DD22720B03300F41208 /* ApiService.swift in Sources */,
 				71CE9DD52720B14E00F41208 /* Beacon.swift in Sources */,
 				710C7F0827230FE10037E134 /* MapViewModel.swift in Sources */,
+				712787772725648D004625A9 /* ErrorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +392,8 @@
 				71CE9DBF2720AF9B00F41208 /* ContentView.swift in Sources */,
 				710C7F0927230FE10037E134 /* MapViewModel.swift in Sources */,
 				71CE9DDE272185D200F41208 /* MapView.swift in Sources */,
+				7127877527256471004625A9 /* RequestLocationView.swift in Sources */,
+				712787782725648D004625A9 /* ErrorView.swift in Sources */,
 				71CE9DDF2721865600F41208 /* ApiService.swift in Sources */,
 				71CE9DBD2720AF9B00F41208 /* BeaconApp.swift in Sources */,
 			);

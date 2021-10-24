@@ -10,7 +10,7 @@ import Combine
 import MapKit
 
 struct MapView: View {
-    @StateObject var viewModel = MapViewModel()
+    @StateObject private var viewModel = MapViewModel()
 
     var body: some View {
         ZStack {
@@ -28,7 +28,7 @@ struct MapView: View {
 }
 
 struct LocationPermissionView: View {
-    @EnvironmentObject var viewModel: MapViewModel
+    @EnvironmentObject private var viewModel: MapViewModel
 
     var body: some View {
         switch viewModel.authorizationStatus {
@@ -44,46 +44,5 @@ struct LocationPermissionView: View {
         default:
             Text("Unexpected status")
         }
-    }
-}
-
-struct RequestLocationView: View {
-    @EnvironmentObject var viewModel: MapViewModel
-
-    var body: some View {
-        VStack {
-            Image(systemName: "location.circle")
-                .resizable()
-                .frame(width: 100, height: 100, alignment: .center)
-                .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
-            Button(action: {
-                print("allowing perms")
-            }, label: {
-                Label("Allow tracking", systemImage: "location")
-            })
-            .padding(10)
-            .foregroundColor(.white)
-            .background(Color.blue)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-            Text("We need your permission to track you.")
-                .foregroundColor(.gray)
-                .font(.caption)
-        }
-    }
-}
-
-struct ErrorView: View {
-    var errorText: String
-
-    var body: some View {
-        VStack {
-            Image(systemName: "xmark.octagon")
-                    .resizable()
-                .frame(width: 100, height: 100, alignment: .center)
-            Text(errorText)
-        }
-        .padding()
-        .foregroundColor(.white)
-        .background(Color.red)
     }
 }
