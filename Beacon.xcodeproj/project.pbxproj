@@ -45,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		710C7F0727230FE10037E134 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		710C7F1327255A910037E134 /* Beacon--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Beacon--iOS--Info.plist"; sourceTree = "<group>"; };
 		71CE9D942720AF9900F41208 /* BeaconApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconApp.swift; sourceTree = "<group>"; };
 		71CE9D952720AF9900F41208 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		71CE9D962720AF9B00F41208 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -106,6 +107,7 @@
 		71CE9D8E2720AF9800F41208 = {
 			isa = PBXGroup;
 			children = (
+				710C7F1327255A910037E134 /* Beacon--iOS--Info.plist */,
 				71CE9D932720AF9900F41208 /* Shared */,
 				71CE9DA22720AF9B00F41208 /* macOS */,
 				71CE9DAB2720AF9B00F41208 /* Tests iOS */,
@@ -187,6 +189,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 71CE9DC42720AF9B00F41208 /* Build configuration list for PBXNativeTarget "Beacon (iOS)" */;
 			buildPhases = (
+				710C7F1427255D5D0037E134 /* Swiftlint */,
 				71CE9D972720AF9B00F41208 /* Sources */,
 				71CE9D982720AF9B00F41208 /* Frameworks */,
 				71CE9D992720AF9B00F41208 /* Resources */,
@@ -336,6 +339,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		710C7F1427255D5D0037E134 /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		71CE9D972720AF9B00F41208 /* Sources */ = {
@@ -520,6 +544,7 @@
 				DEVELOPMENT_TEAM = 4VF4FEXU8X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Beacon--iOS--Info.plist";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "App needs to know your position to display nearest points";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Position is needed to show nearest meeting points";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -552,6 +577,7 @@
 				DEVELOPMENT_TEAM = 4VF4FEXU8X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Beacon--iOS--Info.plist";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "App needs to know your position to display nearest points";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Position is needed to show nearest meeting points";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
