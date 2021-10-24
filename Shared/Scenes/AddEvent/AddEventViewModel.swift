@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import CoreLocation
 
 class AddEventViewModel: NSObject, Identifiable, ObservableObject {
     var subscribers: [AnyCancellable] = []
@@ -14,8 +15,11 @@ class AddEventViewModel: NSObject, Identifiable, ObservableObject {
     @Published var name: String
     @Published var desc: String
     @Published var duration: Int
-    /*let latitude: Float
-    let longitude: Float*/
+
+    @Published var myBeacons: [Beacon] = []
+
+    @Published var showingAlert = false
+    @Published var alertText = ""
 
     private let apiService: ApiService = RestApiService()
 
@@ -31,20 +35,54 @@ class AddEventViewModel: NSObject, Identifiable, ObservableObject {
         subscribers.forEach { $0.cancel() }
     }
 
+    private func cleanForm() {
+        name = ""
+        desc = ""
+        duration = 30
+    }
+
     func addPoint() {
         guard !name.isEmpty && !desc.isEmpty else {
-            print("something is missing!")
+            self.alertText = "Something is missing"
+            self.showingAlert = true
+            return
+        }
+
+        guard let location = CLLocationManager().location else {
+            self.alertText = "No location available"
+            self.showingAlert = true
             return
         }
 
         subscribers.append(
-            apiService.addBeacon(name: name, description: desc, latitude: 0, longitude: 0, duration: Float(duration), date: Date().ISO8601Format()).sink(receiveCompletion: { completion in
-                //Subscribers.Completion<ApiError>
-                print(completion)
+            apiService.addBeacon(
+                name: name,
+                description: desc,
+                latitude: location.coordinate.latitude,
+                longitude: location.coordinate.longitude,
+                duration: Double(duration), date: Date().ISO8601Format()
+            )
+            .sink(receiveCompletion: { completion in
+
+                switch completion {
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self.alertText = error.localizedDescription
+                        self.showingAlert = true
+                    }
+                case .finished:
+                    DispatchQueue.main.async {
+                        self.alertText = "New beacon added!"
+                        self.showingAlert = true
+                        self.cleanForm()
+                    }
+                }
+
             }, receiveValue: { beacon in
-                print(beacon.name)
+                DispatchQueue.main.async {
+                    self.myBeacons.append(beacon)
+                }
             })
         )
-        //TODO: - show if point was successfully added in alert
     }
 }

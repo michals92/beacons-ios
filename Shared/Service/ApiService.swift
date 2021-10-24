@@ -14,7 +14,7 @@ enum ApiError: Error {
 }
 
 protocol ApiService {
-    func addBeacon(name: String, description: String, latitude: Float, longitude: Float, duration: Float, date: String) -> AnyPublisher<Beacon, ApiError>
+    func addBeacon(name: String, description: String, latitude: Double, longitude: Double, duration: Double, date: String) -> AnyPublisher<Beacon, ApiError>
     func getBeacons() -> AnyPublisher<[Beacon]?, ApiError>
 }
 
@@ -24,7 +24,7 @@ class RestApiService: ObservableObject, ApiService {
 
     public init() {}
 
-    func addBeacon(name: String, description: String, latitude: Float, longitude: Float, duration: Float, date: String) -> AnyPublisher<Beacon, ApiError> {
+    func addBeacon(name: String, description: String, latitude: Double, longitude: Double, duration: Double, date: String) -> AnyPublisher<Beacon, ApiError> {
         let path = "addBeacon"
         guard let url = URL(string: path, relativeTo: apiUrl) else {
             fatalError("bad url")

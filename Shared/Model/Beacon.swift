@@ -12,9 +12,9 @@ struct Beacon: Codable, Identifiable {
     let id: Int
     var name: String
     let description: String
-    let latitude: Float
-    let longitude: Float
-    let duration: Float
+    let latitude: Double
+    let longitude: Double
+    let duration: Double
     let date: String
 
     var coordinate: CLLocationCoordinate2D {
