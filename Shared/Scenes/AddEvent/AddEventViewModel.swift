@@ -90,7 +90,6 @@ class AddEventViewModel: NSObject, Identifiable, ObservableObject {
     }
 }
 
-//TODO: remove this extension 
 extension UIApplication {
     func endEditing() {
         DispatchQueue.main.async {

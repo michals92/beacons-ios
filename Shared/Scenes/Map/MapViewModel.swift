@@ -13,9 +13,7 @@ class MapViewModel: NSObject, Identifiable, ObservableObject {
     var subscribers: [AnyCancellable] = []
 
     @Published var beacons: [Beacon]?
-
     @Published var authorizationStatus: CLAuthorizationStatus
-    @Published var location: CLLocation?
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
 
     private let apiService: ApiService = RestApiService()
@@ -27,20 +25,15 @@ class MapViewModel: NSObject, Identifiable, ObservableObject {
         super.init()
 
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
 
-        bind()
+        locationManager.startUpdatingLocation()
+        if let location = locationManager.location {
+            region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+        }
     }
 
     deinit {
         subscribers.forEach { $0.cancel() }
-    }
-
-    private func bind() {
-        $location
-            .map { MKCoordinateRegion(center: $0?.coordinate ?? CLLocationCoordinate2D(), latitudinalMeters: 0.05, longitudinalMeters: 0.05) }
-            .assign(to: &$region)
     }
 
     func getBeacons() {
@@ -63,9 +56,5 @@ extension MapViewModel: CLLocationManagerDelegate {
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         authorizationStatus = locationManager.authorizationStatus
-    }
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        location = locations.last
     }
 }
