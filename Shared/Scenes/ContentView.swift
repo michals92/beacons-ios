@@ -8,13 +8,16 @@
 import SwiftUI
 import Combine
 
-//var publisher: AnyPublisher<[Beacon], Error>?
-
 struct ContentView: View {
+    init() {
+        UITabBar.appearance().barTintColor = UIColor.blue
+        UITabBar.appearance().backgroundColor = .white
+    }
+
     var body: some View {
         TabView {
-            MapView().tabItem { Text("Map") }.tag(1)
-            Text("Add event").tabItem { Text("Add event") }.tag(2)
+            MapView().tabItem { Text("Mapa") }.tag(1).edgesIgnoringSafeArea([.top])
+            AddEvent().tabItem { Text("Přidat") }.tag(2)
         }
     }
 }
