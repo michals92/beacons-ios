@@ -11,29 +11,31 @@ import MapKit
 
 struct MapView: View {
     @StateObject private var viewModel = MapViewModel()
+    @State private var selection: String?
 
     var body: some View {
-        ZStack {
-            Map(coordinateRegion: $viewModel.region, annotationItems: viewModel.beacons ?? [], annotationContent: { beacon in
-                                    MapAnnotation(
-                                        coordinate: beacon.coordinate,
-                                        anchorPoint: CGPoint(x: 0.5, y: 0.7)
-                                    ) {
-                                        VStack {
-                                            Text(beacon.name)
-                                            Image(systemName: "mappin.circle.fill")
-                                                .font(.title)
-                                                .foregroundColor(.red)
-                                                .onTapGesture {
-                                                    print("tapped")
-                                                }
-                                        }
+        NavigationView {
+            VStack {
+                NavigationLink(destination: Text("View A"), tag: "A", selection: $selection) { EmptyView() }
+                ZStack {
+                    Map(coordinateRegion: $viewModel.region, annotationItems: viewModel.beacons ?? [], annotationContent: { beacon in
+                        MapAnnotation(coordinate: beacon.coordinate, anchorPoint: CGPoint(x: 0.5, y: 0.7)) {
+                            VStack {
+                                Text(beacon.name)
+                                Image(systemName: "mappin.circle.fill")
+                                    .font(.title)
+                                    .foregroundColor(.red)
+                                    .onTapGesture {
+                                        selection = "A"
                                     }
                                 }
-            ).onAppear {
-                viewModel.getBeacons()
+                            }
+                    })
+                    .onAppear { viewModel.getBeacons() }
+                    LocationPermissionView().environmentObject(viewModel)
+                }
             }
-            LocationPermissionView().environmentObject(viewModel)
+            .navigationBarHidden(true)
         }
     }
 }
